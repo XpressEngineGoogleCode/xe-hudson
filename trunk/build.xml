@@ -1,16 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
- <project name="test" basedir="." default="app">
-    <property name="builddir" value="${ws}/build" />
-    <target name="prepare">
-        <echo msg="Prepare..." />
-        <mkdir dir="${builddir}" />
-        <mkdir dir="${builddir}/logs" />
-        <mkdir dir="${builddir}/logs/coverage" />
-        <mkdir dir="${builddir}/docs" />
-        <mkdir dir="${builddir}/app" />
-    </target>
-    <target name="clean">
-        <echo msg="Clean..." />
-        <delete dir="${builddir}" />
-    </target>
-</project>
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project name="My Project" default="build">
+  <target name="build" depends="phpunit" />
+ 
+  <target name="init">
+    <mkdir dir="${basedir}/build/logs" />
+  </target>
+ 
+  <target name="phpunit" depends="init">
+   <exec executable="phpunit" dir="${basedir}/tests" failonerror="on">
+     <arg line=" --log-junit '${basedir}/build/logs/phpunit.xml' --coverage-clover '${basedir}/build/logs/clover.xml' --coverage-html '${basedir}/build/logs/coverage'" />
+   </exec>
+  </target>
+ </project>
